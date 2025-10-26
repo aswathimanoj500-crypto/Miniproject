@@ -1,0 +1,83 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8f4f0; /* soft pastel beige */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.contact-form-container {
+  width: 360px;
+  background: #d6feff; /* pastel pink */
+  padding: 30px 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 15px rgba(182, 255, 251, 0.438);
+  transition: box-shadow 0.3s ease;
+}
+
+.contact-form-container:hover {
+  box-shadow: 0 15px 25px rgba(255, 105, 180, 0.6);
+}
+
+h2 {
+  text-align: center;
+  color: #7f5a83; /* muted purple */
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #885d8a; /* desaturated violet */
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 2px solid #f7c8da; /* pastel pink border */
+  background: #fff0f6; /* very light pink */
+  font-size: 1em;
+  color: #6d4b65; /* soft purple */
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #d36ca3; /* stronger pastel pink */
+  outline: none;
+  background: #ffe6f1;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 14px 0;
+  background: #a58cac; /* pastel lavender */
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #6b4b75; /* darker muted purple */
+}
+
+.error-message {
+  color: #de3c5a; /* pastel red for errors */
+  font-size: 0.85em;
+  margin-top: 4px;
+}

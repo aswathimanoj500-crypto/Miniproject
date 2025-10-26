@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login Page</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f7ede9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .login-container {
+    background:#d6e4f0;
+    padding: 40px 50px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 320px;
+    text-align: center;
+  }
+  .login-container h1 {
+    margin-bottom: 30px;
+    color: #667ea0;
+    font-weight: 700;
+    font-size: 2.3rem;
+  }
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 12px 0 20px 0;
+    border: 2px solid #a8dadc;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    border-color: #457b9d;
+  }
+  .login-btn{
+    display:inline-block;
+    width: 100%;
+    padding: 12px;
+    background-color: #f4a261;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  .login-btn:hover{
+    background-color: #e76f51;
+  }
+  .extra-text {
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: #a3a3a3;
+  }
+  .extra-text a {
+    color: #457b9d;
+    text-decoration: none;
+  }
+  .extra-text a:hover {
+    text-decoration: underline;
+  } 
+</style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Welcome</h1>
+    <form action="home.html" method="get">
+      <input type="text" placeholder="Username" name="username" required/>
+      <input type="password"  placeholder="Password" name="password" required/>
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+
+    <div class="extra-text">
+      <p>Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+  </div>
+</body>
+</html>

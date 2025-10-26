@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pastel Thrift Shop</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fef6f0;
+    color: #555;
+  }
+  header {
+    background-color: #a3c9c9;
+    padding: 20px 0;
+    text-align: center;
+  }
+  header nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+  header nav a {
+    text-decoration: none;
+    color: #fef6f0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  header nav a:hover {
+    background-color: #f4a261;
+    color: white;
+  }
+  h1 {
+    margin: 0;
+    color: #556b6e;
+    font-weight: 700;
+    font-size: 2.5rem;
+    padding-bottom: 15px;
+  }
+  main {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+  .collection-title {
+    text-align: center;
+    color: #6a9886;
+    font-size: 2rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+  .dress-collection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap: 25px;
+  }
+  .dress-item {
+    background-color: #f9fafb;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(163, 201, 201, 0.3);
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  .dress-item:hover {
+    transform: scale(1.05);
+  }
+  .dress-image {
+    width: 100%;
+    border-radius: 12px;
+  }
+  .dress-name {
+    font-size: 1.2rem;
+    margin: 15px 0 10px 0;
+    color: #788b8b;
+  }
+  .dress-price {
+    color: #f4a261;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .order-now-btn {
+    margin-top: 10px;
+    padding: 6px 14px;
+    background: #f4a261;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .center-form {
+    display: none;
+    background-color: #f9fafb;
+    border: 2px solid #a3c9c9;
+    border-radius: 15px;
+    max-width: 400px;
+    margin: 40px auto;
+    box-shadow: 0 8px 24px rgba(90,130,130,0.15);
+    padding: 28px 32px;
+    text-align: left;
+  }
+  .center-form label {
+    color: #6a9886;
+    font-weight: 500;
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 7px;
+    font-size: 1rem;
+  }
+  .center-form input,
+  .center-form textarea,
+  .center-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 7px;
+    border: 1px solid #a3c9c9;
+    border-radius: 7px;
+    font-size: 1.05rem;
+    background: #fff;
+  }
+  .center-form button[type="submit"] {
+    margin-top: 18px;
+    background-color: #6a9886;
+    color: #fef6f0;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 24px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 100%;
+  }
+  .order-success {
+    background-color: #a3c9c9;
+    color: #fef6f0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 15px 25px;
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(163, 201, 201, 0.15);
+    margin: 50px auto;
+    max-width: 400px;
+    letter-spacing: 1px;
+  }
+  .hidden { display: none !important; }
+  footer {
+    margin-top: 40px;
+    padding: 20px 0;
+    background-color: #a3c9c9;
+    text-align: center;
+    color: #fef6f0;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pearl Thrift</h1>
+  <nav>
+    <a href="#">Home</a>
+    <a href="contact.html">Contact</a>
+    <a href="about.html">About Us</a>
+  </nav>
+</header>
+<main>
+  <h2 class="collection-title">Dress Collection</h2>
+  <h1 id="order-success-message" class="order-success" style="display:none;">
+    Order placed successfully. Thank you for your purchase!
+  </h1>
+
+  <!-- Product Info Form (Step 1) -->
+  <form id="product-details-form" class="center-form">
+    <label>Name: <input type="text" name="name" required></label>
+    <label>Email: <input type="email" name="email" required></label>
+    <label>Dress: <input type="text" name="dress" id="dress-input" readonly></label>
+    <label>Price: <input type="text" name="price" id="price-input" readonly></label>
+    <label>Quantity: <input type="number" name="quantity" min="1" value="1" required></label>
+    <button type="submit">Submit Order</button>
+  </form>
+  
+  <!-- Address & Payment Form (Step 2) -->
+  <form id="address-payment-form" class="center-form">
+    <label for="address">Address</label>
+    <textarea id="address" name="address" rows="3" required placeholder="Enter your delivery address"></textarea>
+    <label for="payment">Mode of Payment</label>
+    <select id="payment" name="payment" required>
+      <option value="">Choose Payment Mode</option>
+      <option value="cod">Cash on Delivery</option>
+      <option value="card">Credit/Debit Card</option>
+      <option value="online">Online Payment</option>
+      <option value="upi">UPI</option>
+    </select>
+    <button type="submit">Confirm Order</button>
+  </form>
+
+  
+  <!-- Dress Grid -->
+  <div class="dress-collection">
+    <div class="dress-item" data-dress="Pastel Dress" data-price="₹200">
+      <img src="pastel.jpg" alt="Pastel Dress" class="dress-image"/>
+      <div class="dress-name">Pastel Dress</div>
+      <div class="dress-price">₹200</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Striped Vintage Dress" data-price="₹300">
+      <img src="stripped.jpg" alt="Striped Dress" class="dress-image"/>
+      <div class="dress-name">Striped Vintage Dress</div>
+      <div class="dress-price">₹300</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Soft Linen Dress" data-price="₹500">
+      <img src="linen.jpg" alt="Pastel Blue Dress" class="dress-image"/>
+      <div class="dress-name">Soft Linen Dress</div>
+      <div class="dress-price">₹500</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Vintage Pink Dress" data-price="₹400">
+      <img src="pink.jpg" alt="Vintage Pink Dress" class="dress-image"/>
+      <div class="dress-name">Vintage Pink Dress</div>
+      <div class="dress-price">₹400</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Yellow Dress" data-price="₹600">
+      <img src="yellow.jpg" alt="Yellow Dress" class="dress-image"/>
+      <div class="dress-name">Yellow Dress</div>
+      <div class="dress-price">₹600</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Gray Dress" data-price="₹700">
+      <img src="gray.jpg" alt="Gray Dress" class="dress-image"/>
+      <div class="dress-name">Gray Dress</div>
+      <div class="dress-price">₹700</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Bodycon Dress" data-price="₹900">
+      <img src="bodycon.webp" alt="Bodycon" class="dress-image"/>
+      <div class="dress-name">Bodycon Dress</div>
+      <div class="dress-price">₹900</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Maxi Dress" data-price="₹250">
+      <img src="maxi.jpg" alt="Maxi Dress" class="dress-image"/>
+      <div class="dress-name">Maxi Dress</div>
+      <div class="dress-price">₹250</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Shift Dress" data-price="₹850">
+      <img src="shift.webp" alt="Shift Dress" class="dress-image"/>
+      <div class="dress-name">shift Dress</div>
+      <div class="dress-price">₹850</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Floral Dress" data-price="₹550">
+      <img src="floral.jpg" alt="Floral Dress" class="dress-image"/>
+      <div class="dress-name">Floral Dress</div>
+      <div class="dress-price">₹550</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Jacquard Dress" data-price="₹750">
+      <img src="jacquard.jpg" alt="Jacquard Dress" class="dress-image"/>
+      <div class="dress-name">Jacquard Dress</div>
+      <div class="dress-price">₹750</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+    <div class="dress-item" data-dress="Mini Dress" data-price="₹950">
+      <img src="mini.jpg" alt="Mini Dress" class="dress-image"/>
+      <div class="dress-name">Mini Dress</div>
+      <div class="dress-price">₹950</div>
+      <button class="order-now-btn" onclick="showProductForm(this)">Order Now</button>
+    </div>
+  </div>
+</main>
+<footer>
+  &copy; 2025 Pastel Thrift Shop. All rights reserved.
+</footer>
+
+<script>
+function showProductForm(button){
+  // Set selected dress and price
+  const item = button.closest('.dress-item');
+  document.getElementById('dress-input').value = item.getAttribute('data-dress');
+  document.getElementById('price-input').value = item.getAttribute('data-price');
+  
+  // Hide the grid, show form
+  document.querySelector('.dress-collection').style.display = 'none';
+  document.getElementById('product-details-form').style.display = 'block';
+  document.getElementById('address-payment-form').style.display = 'none';
+  document.getElementById('order-success-message').style.display = 'none';
+}
+
+// Handle product form submit
+document.getElementById('product-details-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('product-details-form').style.display = 'none';
+  document.getElementById('address-payment-form').style.display = 'block';
+});
+
+// Handle address/payment form submit
+document.getElementById('address-payment-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  document.getElementById('address-payment-form').style.display = 'none';
+  document.getElementById('order-success-message').style.display = 'block';
+});
+</script>
+</body>
+</html>
